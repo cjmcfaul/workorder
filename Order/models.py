@@ -10,15 +10,13 @@ class WorkOrder(models.Model):
         'Person.Staff',
         null = True,
     )
-    task_items = models.ManyToManyField(
-        'Order.Task',
-        null = True,
-        blank = True,
-    )
     unit = models.ForeignKey(
         'Property.Unit',
         null = True,
     )
+
+    def __str__(self):
+        return '{}'.format(self.name)
 
 class Task(models.Model):
 
@@ -30,36 +28,59 @@ class Task(models.Model):
         ("PL","Plaster"),
         ("R","Replacement"),
         ("A","Appliance"),
+        ('T', "Trash Removal"),
+        ('O', 'Other'),
     )
+
+    name = models.CharField(
+        max_length=200,
+        null = True,
+        blank = True,
+        )
+
+    case = models.ForeignKey(
+        'Order.WorkOrder',
+        null = True,
+        blank = True,
+        )
+
     room = models.ManyToManyField(
         'Property.Room',
         null = True,
         blank= True,
-    )
+        )
+
     item = models.ManyToManyField(
         'Property.Item',
         null = True,
         blank= True,
-    )
+        )
+
     task_type = models.CharField(
         max_length = 1,
         choices = TYPE,
         null=True
-    )
+        )
+
     vendor = models.ForeignKey(
         'Person.Vendor',
         blank = True,
         null = True,
-    )
+        )
+
     staff = models.ManyToManyField(
         'Person.Staff',
         null = True,
-    )
+        )
+
     description = models.TextField(null=True)
     review = models.ManyToManyField(
         'Order.Review',
         null= True,
         )
+
+    def __str__(self):
+        return '{}'.format(self.name)
 
 
 class Review(models.Model):

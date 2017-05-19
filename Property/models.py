@@ -27,12 +27,20 @@ class Unit(models.Model):
 
 class Room(models.Model):
     name = models.CharField(max_length=200)
+    unit = models.ForeignKey(
+        'Property.Unit',
+        null = True,
+        )
 
     def __str__(self):
         return '{}'.format(self.name)
 
 class Item(models.Model):
     name = models.CharField(max_length=200)
+    room_info = models.ForeignKey(
+        'Property.Room',
+        null = True,
+    )
 
     def __str__(self):
         return '{}'.format(self.name)

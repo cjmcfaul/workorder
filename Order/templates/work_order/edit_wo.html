@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block title %}
+  Edit Work Order
+{% endblock title %}
+
+{% block content %}
+
+  <h2>{{ address.line_one }}</h2>
+  <h3>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</h3>
+  <br>
+  <h2>{{ unit.name }}</h2>
+  <br>
+
+  <h1>Add Task</h1>
+  <form role="form" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+
+  <h1>Tasks</h1>
+  <ol>
+  {% for task in tasks %}
+    <li>
+      {% if task.vendor %}
+        <h3>Vendor - {{ task.vendor.name }}</h3>
+        <blockquote>
+          <h4>{{ task.vendor.get_vendor_type_display }}</h4>
+          <h4>Phone: {{ task.vendor.phone }}</h4>
+          <h4>Email: {{ task.vendor.email }}</h4>
+        </blockquote>
+      {% endif %}
+      {% if task.room %}
+        <h3>Room:
+        {% for room in task.room.all %}
+          {{room.name}},
+        {% endfor %}
+        </h3>
+      {% endif %}
+      {% if task.item %}
+        <h3>Item:
+        {% for item in task.item.all %}
+          {{item.name}},
+        {% endfor %}
+        </h3>
+      {% endif %}
+      <h3>Type: {{ task.get_task_type_display }}</h3>
+      <h3>Description</h3>
+      <p>{{ task.description }}</p>
+    </li>
+  {% endfor %}
+  </ol>
+
+
+{% endblock content %}

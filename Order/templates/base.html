@@ -11,7 +11,17 @@
 </head>
 <body>
   <header>
-    <h1>Work Order</h1>
+    <h1>Atlas Lane</h1>
+    <nav>
+      <ul>
+        <li>
+          <a href = "{% url 'home' %}">Home</a>
+        </li>
+        <li>
+          <a href = "{% url 'create_wo' %}">New Work Order</a>
+        </li>
+      </ul>
+    </nav>
   </header>
   {% block content %}{% endblock content %}
   {% block footer %}{% endblock footer %}

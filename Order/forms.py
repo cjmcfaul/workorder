@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 
-from Order.models import WorkOrder
+from Order.models import WorkOrder, Task
 
 class WorkOrderForm(ModelForm):
     class Meta:
@@ -10,4 +10,16 @@ class WorkOrderForm(ModelForm):
             'name',
             'unit',
             'staff',
+        )
+
+class TaskForm(ModelForm):
+    class Meta:
+        model=Task
+        fields = (
+            'name',
+            'room',
+            'item',
+            'task_type',
+            'vendor',
+            'description',
         )

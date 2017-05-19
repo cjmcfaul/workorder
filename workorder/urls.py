@@ -19,10 +19,14 @@ from Order import views
 from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
+
+    url(r'^workorder/(?P<workorder_id>[0-9]+)/edit_wo/$',
+        views.edit_wo, name='edit_wo'),
+
     url(r'^admin/', admin.site.urls),
 
     url(r'^workorder/create_wo/$',
-        views.create_wo, name='create_wo.html'),
+        views.create_wo, name='create_wo'),
 
     url(r'^workorder/(?P<workorder_id>[0-9]+)/$',
         views.workorder, name='workorder'),

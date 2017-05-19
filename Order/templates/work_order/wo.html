@@ -9,8 +9,11 @@
 <br>
 <h2>{{ unit.name }}</h2>
 <br>
+
+<a href = "{% url 'edit_wo' workorder_id=workorder.id %}">Add Task</a>
+
 <ol>
-{% for task in workorder.task_items.all %}
+{% for task in tasks %}
   <li>
     {% if task.vendor %}
       <h3>Vendor - {{ task.vendor.name }}</h3>

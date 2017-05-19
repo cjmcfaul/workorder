@@ -6,13 +6,26 @@
 {% block content %}
 
   {% for workorder in workorders %}
-      <p><a href="{% url 'workorder' workorder_id=workorder.id %}">view</a></p>
+    <h2>{{ workorder.name }}</h2>
+    <p><a href="{% url 'workorder' workorder_id=workorder.id %}">view</a></p>
+    <blockquote>
+      <h3>{{ workorder.unit.address.line_one }}</h3>
+      <h3>{{ workorder.unit.name }}</h3>
+      <h3> Staff:
+        {% for staff in workorder.staff.all %}
+          {{ staff.name }}
+        {% endfor %}
+      </h3>
+    </blockquote>
+      <h2>Tasks</h2>
         <ol>
-          {% for task in workorder.task_items.all %}
-            <li>{{ task.description }}</li>
+          {% for task in tasks %}
+            {% if task.case == workorder %}
+              <li>{{ task.description }}</li>
+            {% endif %}
           {% endfor %}
         </ol>
+      <br>
   {% endfor %}
 
-  <a href=" {% url 'create_wo' %} "><h2>Create Work Order</h2></a>
 {% endblock content %}
