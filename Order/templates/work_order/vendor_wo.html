@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}" />
+<head>
+  <title>
+    {{ workorder.name }}: {{ address.line_one }} - {{ unit.name }}
+  </title>
+
+</head>
+
+<body>
+
+  <header>
+    <h1>Atlas Lane</h1>
+    <nav>
+      <ul>
+        <li>
+          LINK TO ALL VENDOR WORK ORDERS
+        </li>
+        <li>
+          LINK TO FAQ
+        </li>
+      </ul>
+    </nav>
+  </header>
+<div class = "vwoaddress">
+    <h1>{{ workorder.name }}</h1>
+    <h2>{{ address.line_one }}, {{ unit.name }}</h2>
+    <h2>{{ address.city }} {{ address.state }}, {{ address.zip_code }}</h2>
+</div>
+  <h2>Tasks</h2>
+  <h3>In Progress</h3>
+  <ol>
+  {% for task in tasks %}
+    {% if task.stage != 'D' %}
+      <li>
+        <h3>{{ task.name }}</h3>
+        <h4>Type: {{ task.get_task_type_display }}</h4>
+        <h4>Description:</h4>
+        <blockquote>
+          <p>{{ task.description }}</p>
+        </blockquote>
+      </li>
+    {% endif %}
+  {% endfor %}
+  </ol>
+  <h3>Complete</h3>
+  <ol>
+  {% for task in complete_tasks %}
+    <li>
+      <h3>{{ task.name }}</h3>
+      <h4>Type: {{ task.get_task_type_display }}</h4>
+      <h4>Description:</h4>
+      <blockquote>
+        <p>{{ task.description }}</p>
+      </blockquote>
+    </li>
+  {% endfor %}
+
+
+</body>
+
+</html>

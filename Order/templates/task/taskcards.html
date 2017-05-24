@@ -1,0 +1,48 @@
+<h1>Tasks</h1>
+<ol>
+{% for task in tasks %}
+  <li>
+    <h2>{{ task.name }}</h2>
+    <p><b>Stage:</b> {{ task.get_stage_display }}</p>
+    <ul>
+      <li>
+        <a href="{% url 'task_detail' task_id=task.id %}">view</a>
+      </li>
+      <li>
+        <a href="{% url 'edit_task' task_id=task.id %}">edit</a>
+      </li>
+    </ul>
+    {% if task.vendor is not None %}
+      <h3>Vendor - {{ task.vendor.name }}</h3>
+      <ul>
+        <li>
+          <a href ="{% url 'vendor_detail' vendor_id=task.vendor.id %}">view</a>
+        </li>
+      </ul>
+      <blockquote>
+        <h4>{{ task.vendor.get_vendor_type_display }}</h4>
+        <h4>Phone: {{ task.vendor.phone }}</h4>
+        <h4>Email: {{ task.vendor.email }}</h4>
+      </blockquote>
+    {% endif %}
+    {% include 'task/datecard.html' %}
+    {% if task.room is not None %}
+      <h3>Room:
+      {% for room in task.room.all %}
+        {{room.name}},
+      {% endfor %}
+      </h3>
+    {% endif %}
+    {% if task.item is None %}
+      <h3>Item:
+      {% for item in task.item.all %}
+        {{item.name}},
+      {% endfor %}
+      </h3>
+    {% endif %}
+    <h3>Type: {{ task.get_task_type_display }}</h3>
+    <h3>Description</h3>
+    <p>{{ task.description }}</p>
+  </li>
+{% endfor %}
+</ol>

@@ -10,38 +10,8 @@
 <h2>{{ unit.name }}</h2>
 <br>
 
-<a href = "{% url 'edit_wo' workorder_id=workorder.id %}">Add Task</a>
+<a href = "{% url 'create_task' workorder_id=workorder.id %}">Add Task</a>
 
-<ol>
-{% for task in tasks %}
-  <li>
-    {% if task.vendor %}
-      <h3>Vendor - {{ task.vendor.name }}</h3>
-      <blockquote>
-        <h4>{{ task.vendor.get_vendor_type_display }}</h4>
-        <h4>Phone: {{ task.vendor.phone }}</h4>
-        <h4>Email: {{ task.vendor.email }}</h4>
-      </blockquote>
-    {% endif %}
-    {% if task.room %}
-      <h3>Room:
-      {% for room in task.room.all %}
-        {{room.name}},
-      {% endfor %}
-      </h3>
-    {% endif %}
-    {% if task.item %}
-      <h3>Item:
-      {% for item in task.item.all %}
-        {{item.name}},
-      {% endfor %}
-      </h3>
-    {% endif %}
-    <h3>Type: {{ task.get_task_type_display }}</h3>
-    <h3>Description</h3>
-    <p>{{ task.description }}</p>
-  </li>
-{% endfor %}
-</ol>
+{% include 'task/taskcards.html' %}
 
 {% endblock content %}

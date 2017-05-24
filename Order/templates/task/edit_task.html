@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block title %}
-  Edit {{workorder.name}} - {{ block.super }}
+  Edit {{task.name}} - {{ block.super }}
 {% endblock title %}
 
 {% block content %}
-  <h1>Edit "{{workorder.name}}"</h1>
+  <h1>Edit "{{task.name}}"</h1>
   <form role="form" action="" method="post">
     {% csrf_token %}
     {{ form.as_p }}

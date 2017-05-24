@@ -6,10 +6,7 @@ from django.utils import timezone
 # Create your models here.
 class WorkOrder(models.Model):
     name = models.CharField(max_length=200)
-    staff = models.ManyToManyField(
-        'Person.Staff',
-        null = True,
-    )
+    staff = models.ManyToManyField('Person.Staff')
     unit = models.ForeignKey(
         'Property.Unit',
         null = True,
@@ -32,6 +29,15 @@ class Task(models.Model):
         ('O', 'Other'),
     )
 
+    STAGE = (
+        ("C","Created"),
+        ("G","Getting Quote"),
+        ("A","Assigned Vendor"),
+        ("S","Scheduled"),
+        ("N","Needs Reviews"),
+        ("D","Done"),
+    )
+
     name = models.CharField(
         max_length=200,
         null = True,
@@ -46,20 +52,12 @@ class Task(models.Model):
 
     room = models.ManyToManyField(
         'Property.Room',
-        null = True,
         blank= True,
         )
 
     item = models.ManyToManyField(
         'Property.Item',
-        null = True,
         blank= True,
-        )
-
-    task_type = models.CharField(
-        max_length = 1,
-        choices = TYPE,
-        null=True
         )
 
     vendor = models.ForeignKey(
@@ -68,20 +66,63 @@ class Task(models.Model):
         null = True,
         )
 
-    staff = models.ManyToManyField(
-        'Person.Staff',
+    task_type = models.CharField(
+        max_length = 1,
+        choices = TYPE,
+        null=True
+        )
+
+    stage = models.CharField(
+        max_length = 1,
+        choices = STAGE,
+        default = "C",
+        )
+
+    date_created = models.DateTimeField(
+        default=timezone.now)
+
+    date_assigned = models.DateTimeField(
+        blank = True,
         null = True,
         )
 
+    date_scheduled = models.DateTimeField(
+        blank = True,
+        null = True,
+    )
+
+    date_completed = models.DateTimeField(
+        blank = True,
+        null = True,
+    )
+
     description = models.TextField(null=True)
+
+    sub_task= models.ManyToManyField(
+        'Order.Subtask',
+        blank = True,
+    )
+
     review = models.ManyToManyField(
         'Order.Review',
-        null= True,
+        blank = True
         )
 
     def __str__(self):
         return '{}'.format(self.name)
 
+class Subtask(models.Model):
+
+    name = models.CharField(max_length=200)
+    date_created = models.DateTimeField(default=timezone.now)
+    date_completed = models.DateTimeField(
+        blank = True,
+        null = True,
+    )
+    complete = models.BooleanField()
+
+    def __str__(self):
+        return '{}'.format(self.name)
 
 class Review(models.Model):
 

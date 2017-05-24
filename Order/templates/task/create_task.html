@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}
+  Edit Work Order
+{% endblock title %}
+
+{% block content %}
+
+  <h2>{{ address.line_one }}</h2>
+  <h3>{{ address.city }}, {{ address.state }} {{ address.zip_code }}</h3>
+  <br>
+  <h2>{{ unit.name }}</h2>
+  <br>
+
+  <h1>Add Task</h1>
+  <form role="form" action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Submit" />
+  </form>
+
+  {% include 'task/taskcards.html' %}
+
+
+{% endblock content %}

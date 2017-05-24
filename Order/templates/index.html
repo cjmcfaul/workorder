@@ -4,13 +4,23 @@
 {% endblock title %}
 
 {% block content %}
-
+<ol>
   {% for workorder in workorders %}
+  <li>
     <h2>{{ workorder.name }}</h2>
-    <p><a href="{% url 'workorder' workorder_id=workorder.id %}">view</a></p>
+    <ul>
+      <li>
+        <a href="{% url 'workorder' workorder_id=workorder.id %}">view</a>
+      </li>
+      <li>
+        <a href="{% url 'edit_wo' workorder_id=workorder.id %}">edit</a>
+      </li>
+      <li>
+        <a href="{% url 'create_task' workorder_id=workorder.id %}">add task</a>
+      </li>
+    </ul>
     <blockquote>
-      <h3>{{ workorder.unit.address.line_one }}</h3>
-      <h3>{{ workorder.unit.name }}</h3>
+      <h3>{{ workorder.unit.address.line_one }}, {{ workorder.unit.name }}</h3>
       <h3> Staff:
         {% for staff in workorder.staff.all %}
           {{ staff.name }}
@@ -21,11 +31,12 @@
         <ol>
           {% for task in tasks %}
             {% if task.case == workorder %}
-              <li>{{ task.description }}</li>
+              <li>{{ task.name }} <a href="{% url 'task_detail' task_id=task.id %}">view</a></li>
             {% endif %}
           {% endfor %}
         </ol>
       <br>
+    </li>
   {% endfor %}
-
+</ol>
 {% endblock content %}

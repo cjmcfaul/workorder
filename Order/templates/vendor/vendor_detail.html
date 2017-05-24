@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}
+  {{ vendor.name }}
+{% endblock title %}
+
+{% block content %}
+  <h1>{{ vendor.name }}</h1>
+
+  {% for task in tasks %}
+
+    <h3>{{ task.name }}</h4>
+    <blockquote>
+      <h4>{{ task.case.unit.address }} {{ task.case.unit }}</h4>
+      <h4>{{ task.case }}</h4>
+    </blockquote>
+
+  {% endfor %}
+
+{% endblock content %}

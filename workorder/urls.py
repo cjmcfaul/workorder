@@ -20,16 +20,39 @@ from django.views.generic import TemplateView, RedirectView
 
 urlpatterns = [
 
-    url(r'^workorder/(?P<workorder_id>[0-9]+)/edit_wo/$',
-        views.edit_wo, name='edit_wo'),
+#Vendor
 
-    url(r'^admin/', admin.site.urls),
+    url(r'^vendor/(?P<vendor_id>[0-9]+)/$',
+        views.vendor_detail, name='vendor_detail'),
+
+#Task
+
+    url(r'^workorder/task/(?P<task_id>[0-9]+)/$',
+        views.task_detail, name='task_detail'),
+
+    url(r'^workorder/(?P<workorder_id>[0-9]+)/create_task/$',
+        views.create_task, name='create_task'),
+
+    url(r'^workorder/task/(?P<task_id>[0-9]+)/edit/$',
+        views.edit_task, name='edit_task'),
+
+#Work Order
 
     url(r'^workorder/create_wo/$',
         views.create_wo, name='create_wo'),
 
+    url(r'^(?P<vendor_id>[0-9]+)/(?P<workorder_id>[0-9]+)/$',
+        views.vendor_wo, name='vendor_wo'),
+
+    url(r'^workorder/(?P<workorder_id>[0-9]+)/edit/$',
+        views.edit_wo, name='edit_wo'),
+
     url(r'^workorder/(?P<workorder_id>[0-9]+)/$',
         views.workorder, name='workorder'),
+
+#Admin + Index
+
+    url(r'^admin/', admin.site.urls),
 
     url(r'^$', views.index, name='home'),
 ]

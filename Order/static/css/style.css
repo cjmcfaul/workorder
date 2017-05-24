@@ -1,0 +1,18 @@
+ol li {
+  background-color: #FE7863;
+}
+
+header {
+  background-color: #28283C;
+  color: #F0F0F0;
+  text-align: center;
+}
+
+div.vwoaddress {
+  text-align: center;
+}
+
+nav ul li {
+  list-style-type: none;
+  display: inline-block;
+}
